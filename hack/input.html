@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enter Process Details</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<h1>Enter Process Details</h1>
+
+<p>Selected Algorithm: <b id="algoName"></b></p>
+
+<div id="quantumDiv" style="display:none;">
+    Quantum Time: <input type="number" id="quantum">
+</div>
+
+<br>
+
+<table border="1" id="processTable">
+    <tr>
+        <th>PID</th>
+        <th>Arrival Time</th>
+        <th>Burst Time</th>
+        <th>Priority</th>
+    </tr>
+</table>
+
+<br>
+
+<button onclick="addRow()">Add Process</button>
+<button onclick="generate()">Generate Algorithm</button>
+
+<script>
+let algo = localStorage.getItem("algorithm");
+
+document.getElementById("algoName").innerText = algo.toUpperCase();
+
+if (algo === "rr") {
+    document.getElementById("quantumDiv").style.display = "block";
+}
+
+if (algo !== "priority") {
+    // hide priority column
+    let th = document.querySelectorAll("#processTable th")[3];
+    th.style.display = "none";
+}
+
+function addRow() {
+    let table = document.getElementById("processTable");
+    let row = table.insertRow(-1);
+
+    row.innerHTML = `
+        <td>P${table.rows.length - 1}</td>
+        <td><input type='number'></td>
+        <td><input type='number'></td>
+        <td><input type='number' ${algo !== "priority" ? "style='display:none'" : ""}></td>
+        <td><button onclick='this.parentNode.parentNode.remove()'>Delete</button></td>
+    `;
+}
+
+function generate() {
+    let rows = document.querySelectorAll("#processTable tr");
+    let data = [];
+
+    rows.forEach((r, i) => {
+        if (i === 0) return;
+
+        let cells = r.querySelectorAll("td");
+        data.push({
+            pid: cells[0].innerText,
+            arrival: cells[1].querySelector("input").value,
+            burst: cells[2].querySelector("input").value,
+            priority: algo === "priority" ? cells[3].querySelector("input").value : null
+        });
+    });
+
+    localStorage.setItem("processData", JSON.stringify(data));
+
+    if (algo === "rr") {
+        localStorage.setItem("quantum", document.getElementById("quantum").value);
+    }
+
+    window.location.href = "ai.html";
+}
+</script>
+
+</body>
+</html>
