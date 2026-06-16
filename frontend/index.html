@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GENESIS PORTAL 3.0</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background: linear-gradient(to right,#050816,#0f172a);
+      color:white;
+    }
+
+    .container{
+      width:90%;
+      height:90vh;
+      display:flex;
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0px 0px 20px rgba(0,0,0,0.5);
+    }
+
+    .left{
+      flex:1;
+      background: linear-gradient(to bottom,#0b1120,#111827);
+      padding:60px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .logo{
+      font-size:20px;
+      font-weight:bold;
+      margin-bottom:50px;
+    }
+
+    .title{
+      font-size:60px;
+      font-weight:bold;
+      margin-bottom:40px;
+    }
+
+    .title span{
+      color:#2563eb;
+    }
+
+    .feature{
+      background:#1e293b;
+      padding:18px;
+      border-radius:12px;
+      margin-bottom:20px;
+      font-size:18px;
+    }
+
+    .right{
+      width:420px;
+      background:white;
+      color:black;
+      padding:40px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .right h1{
+      color:#1e3a8a;
+      margin-bottom:10px;
+      text-align:center;
+    }
+
+    .right p{
+      text-align:center;
+      margin-bottom:30px;
+      color:gray;
+    }
+
+    label{
+      font-weight:bold;
+      margin-bottom:8px;
+      display:block;
+    }
+
+    input{
+      width:100%;
+      padding:14px;
+      margin-bottom:20px;
+      border:1px solid #ccc;
+      border-radius:10px;
+      font-size:16px;
+    }
+
+    button{
+      width:100%;
+      padding:15px;
+      border:none;
+      border-radius:10px;
+      background:linear-gradient(to right,#2563eb,#4f46e5);
+      color:white;
+      font-size:18px;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    button:hover{
+      opacity:0.9;
+    }
+
+    .bottom{
+      margin-top:20px;
+      text-align:center;
+      color:gray;
+      font-size:14px;
+    }
+
+    .error-message{
+      color: red;
+      font-size: 14px;
+      margin-top: -15px;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    .loading{
+      display: none;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <div class="logo">
+        GSSSIETW <br>
+        MYSORE - KARNATAKA
+      </div>
+      <div class="title">
+        GENESIS <span>PORTAL 3.0</span>
+      </div>
+      <div class="feature">🔒 Secure Access</div>
+      <div class="feature">📈 Real-Time Analytics</div>
+      <div class="feature">⚡ Fast Dashboard</div>
+    </div>
+
+    <div class="right">
+      <h1>Welcome Back!</h1>
+      <p>Login to access your dashboard</p>
+
+      <label>USN / Username</label>
+      <input type="text" id="usn" placeholder="e.g., 4GW24CI042">
+
+      <label>Password</label>
+      <input type="password" id="password" placeholder="Enter your password (student123)">
+
+      <div id="errorMsg" class="error-message"></div>
+      
+      <button onclick="login()">
+        LOGIN TO DASHBOARD →
+      </button>
+
+      <div class="loading" id="loading">
+        Logging in...
+      </div>
+
+      <div class="bottom">
+        ISO Certified | 256-bit SSL | 24/7 Support<br><br>
+        <a href="admin-login.html" style="color: #dc2626; text-decoration: none; font-weight: bold; margin-right: 10px;">🛡️ Admin Login</a>
+        <a href="faculty-login.html" style="color: #2563eb; text-decoration: none; font-weight: bold;">👨‍🏫 Faculty Login</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // FIXED: No backend required - Works directly with localStorage
+    function login(){
+      const usn = document.getElementById("usn").value.trim().toUpperCase();
+      const password = document.getElementById("password").value;
+      const errorMsg = document.getElementById("errorMsg");
+      const loginBtn = document.querySelector("button");
+      const loading = document.getElementById("loading");
+
+      // Clear previous error
+      errorMsg.style.display = "none";
+      errorMsg.textContent = "";
+
+      // Validate inputs
+      if(usn === "" || password === ""){
+        errorMsg.style.display = "block";
+        errorMsg.textContent = "Please enter USN and Password";
+        return;
+      }
+
+      // Validate USN format
+      const usnPattern = /^4GW24CI(0[0-5][0-9]|06[0-8])$/;
+      if (!usnPattern.test(usn)) {
+        errorMsg.style.display = "block";
+        errorMsg.textContent = "Invalid USN format! Example: 4GW24CI042";
+        return;
+      }
+
+      // Check password
+      if (password !== "student123") {
+        errorMsg.style.display = "block";
+        errorMsg.textContent = "Invalid password! Use: student123";
+        return;
+      }
+
+      // Show loading
+      loginBtn.disabled = true;
+      loading.style.display = "block";
+
+      // Simulate network delay (optional)
+      setTimeout(() => {
+        // Store login information in localStorage
+        let loginCount = parseInt(localStorage.getItem("genesis_login_count")) || 0;
+        loginCount++;
+        localStorage.setItem("genesis_login_count", loginCount);
+        localStorage.setItem("genesis_last_login", new Date().toLocaleString());
+        localStorage.setItem("studentUSN", usn);
+        
+        // Set default name if not exists
+        if (!localStorage.getItem("studentName")) {
+          localStorage.setItem("studentName", usn);
+        }
+
+        // Show success and redirect
+        errorMsg.style.backgroundColor = "#d1fae5";
+        errorMsg.style.color = "#059669";
+        errorMsg.textContent = "✅ Login Successful! Redirecting...";
+        errorMsg.style.display = "block";
+        
+        setTimeout(() => {
+          window.location.href = "profile.html";
+        }, 1000);
+      }, 500);
+    }
+
+    // Check if already logged in
+    const savedUSN = localStorage.getItem("studentUSN");
+    if (savedUSN && (window.location.pathname === '/' || window.location.pathname === '/index.html')) {
+      window.location.href = "profile.html";
+    }
+
+    // Enter key support
+    document.getElementById("password").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        login();
+      }
+    });
+  </script>
+</body>
+</html>
