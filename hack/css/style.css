@@ -1,0 +1,268 @@
+/* ----------------------------------
+   GLOBAL STYLING
+-----------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #dbeafe, #f1f5f9);
+    min-height: 100vh;
+    padding: 40px;
+}
+
+/* ----------------------------------
+   PAGE TITLES
+-----------------------------------*/
+h1 {
+    text-align: center;
+    font-size: 38px;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+h2, h3 {
+    color: #1e293b;
+    margin-top: 25px;
+}
+
+/* ----------------------------------
+   Modern Card Container
+-----------------------------------*/
+.card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    padding: 25px;
+    border-radius: 16px;
+    width: 90%;
+    margin: auto;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------------
+   BUTTON STYLING
+-----------------------------------*/
+button {
+    padding: 12px 28px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #5025eb, #1e3a8a);
+    color: white;
+    cursor: pointer;
+    transition: 0.25s ease;
+    box-shadow: 0 4px 12px rgba(17, 0, 50, 0.2);
+}
+
+button:hover {
+    transform: scale(1.07);
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+/* ----------------------------------
+   Algorithm selection grid
+-----------------------------------*/
+.algo-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+/* ----------------------------------
+   INPUT FIELDS
+-----------------------------------*/
+input {
+    padding: 10px 14px;
+    width: 95%;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    font-size: 16px;
+}
+
+input:focus {
+    border-color: #2563eb;
+    background: #ffffff;
+    box-shadow: 0 0 8px rgba(37,99,235,0.3);
+}
+
+/* ----------------------------------
+   TABLE STYLING (MODERN)
+-----------------------------------*/
+table {
+    width: 90%;
+    margin: 25px auto;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+th {
+    background: #1e3a8a;
+    color: white;
+    padding: 14px;
+    font-size: 18px;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: center;
+    font-size: 16px;
+}
+
+tr:hover td {
+    background: #f1f5f9;
+    cursor: pointer;
+}
+
+/* ----------------------------------
+   AI Explanation Box
+-----------------------------------*/
+#aiBox {
+    background: rgba(255,255,255,0.8);
+    padding: 20px;
+    border-left: 6px solid #f63b64;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+    max-width: 900px;
+    margin: auto;
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* ----------------------------------
+   Gantt Chart Container
+-----------------------------------*/
+#gantt {
+    margin-top: 30px;
+    display: flex;
+    gap: 6px;
+    padding: 18px;
+    border-radius: 14px;
+    background: white;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+    animation: fadeIn 0.7s ease-out;
+}
+
+/* ----------------------------------
+   Animated Gantt Bars
+-----------------------------------*/
+@keyframes growBar {
+    from { width: 0; opacity: 0.4; }
+    to   { opacity: 1; }
+}
+
+.bar {
+    height: 48px;
+    border-radius: 8px;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: growBar 1s ease-out forwards;
+    transition: 0.2s;
+}
+
+.bar:hover {
+    transform: translateY(-4px);
+    filter: brightness(1.2);
+}
+
+/* ----------------------------------
+   AVERAGE BOX
+-----------------------------------*/
+#avg {
+    margin-top: 25px;
+    font-size: 22px;
+    background: #dbeafe;
+    padding: 15px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    border-left: 8px solid #2563eb;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* ----------------------------------
+   RESPONSIVE DESIGN
+-----------------------------------*/
+@media (max-width: 768px) {
+    .algo-list {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    table, #gantt {
+        width: 100%;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+.bar-text {
+    font-size: 13px;
+    text-align: center;
+    line-height: 16px;
+}
+.bar span {
+    font-size: 11px;
+    opacity: 0.9;
+}
+#gantt {
+    display: flex;
+    gap: 6px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    margin: 20px auto;
+}
+
+.bar {
+    height: 50px;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    animation: growBar 0.8s ease-out forwards;
+}
+
+.bar-text {
+    text-align: center;
+    font-size: 12px;
+    line-height: 14px;}
+canvas {
+  background: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  margin-top: 10px;
+}
