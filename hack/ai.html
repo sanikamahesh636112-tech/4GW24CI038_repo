@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Explanation</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="nav-title">CPU Scheduler AI</div>
+</div>
+
+<h1>AI Scheduling Insights</h1>
+
+<div id="aiBox" class="card"></div>
+
+<h2>More AI Options</h2>
+
+<div class="ai-options card">
+    <button onclick="explainSimple()">Simple Explanation</button>
+    <button onclick="explainTechnical()">Technical Explanation</button>
+    <button onclick="explainTimeline()">Process Arrival Timeline</button>
+    <button onclick="explainOrder()">Who Runs First?</button>
+</div>
+
+<button class="start-btn" onclick="continueOutput()">Continue to Output</button>
+
+<div id="loader" class="loader hidden"></div>
+
+<script>
+let algo = localStorage.getItem("algorithm");
+let processData = JSON.parse(localStorage.getItem("processData"));
+
+function firstArrival() {
+    return processData.sort((a,b)=>a.arrival - b.arrival)[0];
+}
+
+function explainSimple() {
+    document.getElementById("aiBox").innerHTML = `
+        <h3>Simple Explanation</h3>
+        <p>${algo.toUpperCase()} decides how CPU selects which process runs first.</p>
+        <p>The first process to arrive is <b>${firstArrival().pid}</b> at time 
+        <b>${firstArrival().arrival}</b>.</p>
+    `;
+}
+
+function explainTechnical() {
+    document.getElementById("aiBox").innerHTML = `
+        <h3>Technical Explanation</h3>
+        <p>${algo.toUpperCase()} evaluates processes based on its policy.</p>
+        <p>CPU compares: arrival, burst time, priority, or quantum depending on algorithm.</p>
+    `;
+}
+
+function explainTimeline() {
+    let sorted = processData.sort((a,b)=>a.arrival - b.arrival);
+    let list = sorted.map(p => `${p.pid} arrives at ${p.arrival}`).join("<br>");
+    document.getElementById("aiBox").innerHTML = `
+        <h3>Arrival Timeline</h3>
+        <p>${list}</p>
+    `;
+}
+
+function explainOrder() {
+    let sorted = processData.sort((a,b)=>a.arrival - b.arrival);
+    document.getElementById("aiBox").innerHTML = `
+        <h3>CPU Will Run First:</h3>
+        <p><b>${sorted[0].pid}</b> because it arrives earliest at time ${sorted[0].arrival}.</p>
+        <p>Predicted execution start order (arrival-based):</p>
+        <p>${sorted.map(p=>p.pid).join(" → ")}</p>
+    `;
+}
+
+// Auto show simple explanation
+explainSimple();
+
+function continueOutput() {
+    document.getElementById("loader").classList.remove("hidden");
+    setTimeout(() => window.location.href = "output.html", 1500);
+}
+</script>
+
+</body>
+</html>

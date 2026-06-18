@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CPU Scheduling Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <h1>Select CPU Scheduling Algorithm</h1>
+
+    <div class="algo-list">
+        <button onclick="selectAlgo('fcfs')">FCFS</button>
+        <button onclick="selectAlgo('sjf')">SJF</button>
+        <button onclick="selectAlgo('srtf')">SRTF</button>
+        <button onclick="selectAlgo('rr')">Round Robin</button>
+        <button onclick="selectAlgo('priority')">Priority</button>
+    </div>
+
+<script>
+function selectAlgo(name) {
+    localStorage.setItem("algorithm", name);
+    window.location.href = "input.html";
+}
+</script>
+
+</body>
+</html>

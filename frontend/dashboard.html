@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>GENESIS PORTAL 3.0 | Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #eef2f7 0%, #d9e0e8 100%);
+      font-family: 'Inter', sans-serif;
+      padding: 24px 28px;
+      color: #1a2634;
+    }
+
+    .dashboard-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .logo-area h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #0b2b3b, #1a5f7a);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.3px;
+    }
+    .logo-area p {
+      font-size: 0.85rem;
+      color: #2c5368;
+      font-weight: 500;
+    }
+
+    .logout-btn {
+      background: #ffffffdd;
+      backdrop-filter: blur(6px);
+      border: 1px solid #cbd5e1;
+      padding: 10px 24px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #b91c1c;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logout-btn:hover {
+      background: #fee2e2;
+      border-color: #ef4444;
+      transform: scale(0.97);
+    }
+
+    .profile-nav-btn {
+      background: #1e7e9c;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 60px;
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .profile-nav-btn:hover {
+      background: #0f5f77;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.85);
+      border-radius: 32px;
+      padding: 1.5rem 1.2rem;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+      transition: all 0.25s;
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    .stat-card:hover {
+      transform: translateY(-5px);
+      background: white;
+    }
+    .stat-value {
+      font-size: 3.2rem;
+      font-weight: 800;
+      color: #0f3b4c;
+    }
+    .stat-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #2c5a6e;
+      margin-top: 8px;
+    }
+    .detail-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1e7e9c;
+      cursor: pointer;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+    }
+    .detail-link:hover {
+      color: #0f4c5e;
+      gap: 12px;
+    }
+
+    .late-badge {
+      background: #dcfce7;
+      color: #15803d;
+      border-radius: 40px;
+      padding: 2px 10px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+
+    .bottom-panels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      margin-top: 20px;
+    }
+
+    .assistant-card {
+      flex: 2;
+      min-width: 280px;
+      background: linear-gradient(135deg, #162b36 0%, #1a3f4b 100%);
+      border-radius: 32px;
+      padding: 1.6rem;
+      color: #f0f9ff;
+    }
+    .assistant-card h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .assistant-item {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 12px 18px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .ai-button {
+      background: #ff9f2e;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      border-radius: 40px;
+      font-weight: 700;
+      margin-top: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .ai-button:hover {
+      background: #ffb347;
+    }
+    .ai-response {
+      margin-top: 15px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 12px;
+      font-size: 0.85rem;
+      border-left: 3px solid #ff9f2e;
+      display: none;
+    }
+    .ai-response.show {
+      display: block;
+    }
+
+    .action-grid {
+      flex: 3;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 20px;
+    }
+
+    .action-tile {
+      background: white;
+      border-radius: 28px;
+      padding: 1.2rem;
+      border: 1px solid #eef2f6;
+    }
+    .action-tile h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #0f3b4c;
+    }
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .small-btn {
+      background: #f1f5f9;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #1e5f74;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .small-btn:hover {
+      background: #dceaf1;
+    }
+
+    .welcome-banner {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      padding: 15px 25px;
+      margin-bottom: 25px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .student-badge {
+      background: rgba(255,255,255,0.2);
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+
+    /* Enhanced Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 28px;
+      width: 500px;
+      max-width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .modal-content h3 {
+      margin-bottom: 20px;
+      color: #1e3a8a;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .modal-content input, .modal-content textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      font-size: 0.9rem;
+    }
+    .modal-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+    .modal-buttons button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .save-modal-btn {
+      background: #2563eb;
+      color: white;
+    }
+    .cancel-modal-btn {
+      background: #e5e7eb;
+      color: #333;
+    }
+    .item-list {
+      margin-top: 15px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .list-item {
+      background: #f8fafc;
+      padding: 12px;
+      border-radius: 16px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #e2e8f0;
+    }
+    .item-info {
+      flex: 1;
+    }
+    .item-title {
+      font-weight: 700;
+      color: #0f3b4c;
+    }
+    .item-sub {
+      font-size: 0.7rem;
+      color: #5b6e82;
+      margin-top: 3px;
+    }
+    .delete-item-btn {
+      background: #fee2e2;
+      color: #dc2626;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .delete-item-btn:hover {
+      background: #fecaca;
+    }
+    .add-new-btn {
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 40px;
+      margin: 15px 0 5px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .empty-message {
+      text-align: center;
+      padding: 20px;
+      color: #94a3b8;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.7rem;
+      text-align: center;
+      color: #4a6a7c;
+      border-top: 1px solid #cbdae6;
+      padding-top: 20px;
+    }
+
+    @media (max-width: 700px) {
+      body { padding: 16px; }
+      .stat-value { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+  
+  <div class="header-row">
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <button id="logoutMainBtn" class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+      <div class="logo-area">
+        <h1>GENESIS PORTAL 3.0</h1>
+        <p>student empowerment hub</p>
+      </div>
+    </div>
+    <a href="profile.html" class="profile-nav-btn">
+      <i class="fas fa-user-circle"></i> Edit Profile
+    </a>
+  </div>
+
+  <div class="welcome-banner">
+    <h2><i class="fas fa-graduation-cap"></i> Welcome back, <span id="studentNameDisplay">Student</span>!</h2>
+    <div class="student-badge">
+      <i class="fas fa-id-card"></i> <span id="studentUSNDisplay">USN: ---</span>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <!-- MOOC Card -->
+    <div class="stat-card">
+      <div class="stat-value" id="totalMoocValue">0</div>
+      <div class="stat-label">Total MOOC Courses<br>Enrolled in current semester</div>
+      <div class="detail-link" id="viewMoocDetails"><i class="fas fa-book"></i> View Details →</div>
+    </div>
+    <!-- Activities Card -->
+    <div class="stat-card">
+      <div class="stat-value" id="extraActivitiesValue">0</div>
+      <div class="stat-label">Extra Curricular<br>Activities participated</div>
+      <div class="detail-link" id="viewActivitiesLink"><i class="fas fa-trophy"></i> View Activities →</div>
+    </div>
+    <!-- Projects Card -->
+    <div class="stat-card">
+      <div class="stat-value" id="totalProjectsValue">0</div>
+      <div class="stat-label">Student Projects<br>Uploaded & Shared</div>
+      <div class="detail-link" id="viewProjectsLink"><i class="fas fa-laptop-code"></i> Manage Projects →</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="loginCountValue">0</div>
+      <div class="stat-label">Your Login Count To GENESIS</div>
+      <div class="detail-link" style="border:none; padding-top:0;" id="lastLoginDisplay">Last: --</div>
+    </div>
+  </div>
+
+  <div class="bottom-panels">
+    <div class="assistant-card">
+      <h3><i class="fas fa-robot"></i> GENEI ASSISTANT!</h3>
+      <div class="assistant-item"><span>📅 Tomorrow's Gatepass:</span><strong id="gatepassStatus">LOW</strong></div>
+      <div class="assistant-item"><span>📈 Trending MOOC:</span><strong id="trendingMooc">Cyber Security</strong></div>
+      <div class="assistant-item"><span>📚 Your MOOC:</span><strong id="yourMoocEnrolled">0 enrolled</strong></div>
+      <div class="assistant-item"><span>🎭 Participation:</span><strong id="participationEvents">0 events</strong></div>
+      <div class="assistant-item"><span>💻 Projects:</span><strong id="projectsCount">0 projects</strong></div>
+      <button class="ai-button" id="askAiBtn"><i class="fas fa-microphone-alt"></i> Ask AI Assistant</button>
+      <div id="aiResponseBox" class="ai-response"></div>
+    </div>
+
+    <div class="action-grid">
+      <div class="action-tile">
+        <h4><i class="fas fa-chart-line"></i> AICTE Reports</h4>
+        <p style="font-size:0.7rem; color:#4b6b7c;">Updated reports available</p>
+        <div class="action-buttons">
+          <div class="small-btn" id="viewReportsBtn">View Reports →</div>
+        </div>
+      </div>
+      <div class="action-tile">
+        <h4><i class="fas fa-book-open"></i> Course Materials</h4>
+        <p style="font-size:0.7rem; color:#4b6b7c;">Download notes & resources</p>
+        <div class="action-buttons">
+          <div class="small-btn" id="uploadMaterialBtn">Upload Material →</div>
+          <div class="small-btn" id="accessMaterialsBtn">Access Materials →</div>
+        </div>
+      </div>
+      <div class="action-tile">
+        <h4><i class="fas fa-laptop-code"></i> View Projects</h4>
+        <p style="font-size:0.7rem; color:#4b6b7c;">Upload & browse projects</p>
+        <div class="action-buttons">
+          <div class="small-btn" id="uploadProjectBtn"><i class="fas fa-plus-circle"></i> Upload Project</div>
+          <div class="small-btn" id="exploreProjectsBtn"><i class="fas fa-search"></i> Explore</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer>
+    <i class="fas fa-shield-alt"></i> Secure Genesis Access | v3.0 • Add/Delete any item with full control
+  </footer>
+</div>
+
+<!-- ==================== MODALS ==================== -->
+
+<!-- MOOC Modal -->
+<div id="moocModal" class="modal">
+  <div class="modal-content">
+    <h3><i class="fas fa-graduation-cap"></i> My MOOC Courses</h3>
+    <div id="moocListContainer" class="item-list"></div>
+    <button class="add-new-btn" id="addMoocBtn"><i class="fas fa-plus"></i> Add New MOOC Course</button>
+    <div class="modal-buttons"><button class="cancel-modal-btn" onclick="closeMoocModal()">Close</button></div>
+  </div>
+</div>
+
+<!-- Activity Modal -->
+<div id="activityModal" class="modal">
+  <div class="modal-content">
+    <h3><i class="fas fa-futbol"></i> Extra Curricular Activities</h3>
+    <div id="activityListContainer" class="item-list"></div>
+    <button class="add-new-btn" id="addActivityBtn"><i class="fas fa-plus"></i> Add New Activity</button>
+    <div class="modal-buttons"><button class="cancel-modal-btn" onclick="closeActivityModal()">Close</button></div>
+  </div>
+</div>
+
+<!-- Projects Modal -->
+<div id="projectsModal" class="modal">
+  <div class="modal-content">
+    <h3><i class="fas fa-laptop-code"></i> Student Projects</h3>
+    <div id="projectsListContainer" class="item-list"></div>
+    <button class="add-new-btn" id="addProjectBtn"><i class="fas fa-plus"></i> Upload New Project</button>
+    <div class="modal-buttons"><button class="cancel-modal-btn" onclick="closeProjectsModal()">Close</button></div>
+  </div>
+</div>
+
+<script>
+  // ==================== DATA STRUCTURES ====================
+  let moocCourses = [];       // { name, provider, date }
+  let extraActivities = [];   // { name, date }
+  let studentProjects = [];    // { title, description, tech, date }
+
+  const currentUSN = localStorage.getItem("currentUSN") || "STUDENT";
+  function getStudentKey(base) { return `${base}_${currentUSN}`; }
+
+  // ==================== LOAD / SAVE ====================
+  function loadAllData() {
+    moocCourses = JSON.parse(localStorage.getItem(getStudentKey("moocCourses")) || "[]");
+    extraActivities = JSON.parse(localStorage.getItem(getStudentKey("activities")) || "[]");
+    studentProjects = JSON.parse(localStorage.getItem(getStudentKey("projects")) || "[]");
+    updateAllCounters();
+  }
+
+  function saveMoocs() { localStorage.setItem(getStudentKey("moocCourses"), JSON.stringify(moocCourses)); updateAllCounters(); }
+  function saveActivities() { localStorage.setItem(getStudentKey("activities"), JSON.stringify(extraActivities)); updateAllCounters(); }
+  function saveProjects() { localStorage.setItem(getStudentKey("projects"), JSON.stringify(studentProjects)); updateAllCounters(); }
+
+  function updateAllCounters() {
+    document.getElementById("totalMoocValue").innerText = moocCourses.length;
+    document.getElementById("extraActivitiesValue").innerText = extraActivities.length;
+    document.getElementById("totalProjectsValue").innerText = studentProjects.length;
+    document.getElementById("yourMoocEnrolled").innerHTML = moocCourses.length + " enrolled";
+    document.getElementById("participationEvents").innerHTML = extraActivities.length + " events";
+    document.getElementById("projectsCount").innerHTML = studentProjects.length + " projects";
+  }
+
+  // ==================== RENDER FUNCTIONS ====================
+  function renderMoocList() {
+    const container = document.getElementById("moocListContainer");
+    if (!container) return;
+    if (moocCourses.length === 0) {
+      container.innerHTML = '<div class="empty-message"><i class="fas fa-info-circle"></i> No MOOC courses added yet. Click below to add.</div>';
+      return;
+    }
+    container.innerHTML = moocCourses.map((c, idx) => `
+      <div class="list-item">
+        <div class="item-info">
+          <div class="item-title">📘 ${escapeHtml(c.name)}</div>
+          <div class="item-sub">${escapeHtml(c.provider || 'Self-paced')} • Added: ${c.date || 'recent'}</div>
+        </div>
+        <button class="delete-item-btn" data-type="mooc" data-idx="${idx}"><i class="fas fa-trash"></i> Delete</button>
+      </div>
+    `).join('');
+    attachDeleteEvents('mooc');
+  }
+
+  function renderActivityList() {
+    const container = document.getElementById("activityListContainer");
+    if (!container) return;
+    if (extraActivities.length === 0) {
+      container.innerHTML = '<div class="empty-message"><i class="fas fa-info-circle"></i> No activities yet. Add your achievements!</div>';
+      return;
+    }
+    container.innerHTML = extraActivities.map((act, idx) => `
+      <div class="list-item">
+        <div class="item-info">
+          <div class="item-title">🎯 ${escapeHtml(act.name)}</div>
+          <div class="item-sub">📅 ${act.date || 'Date not specified'}</div>
+        </div>
+        <button class="delete-item-btn" data-type="activity" data-idx="${idx}"><i class="fas fa-trash"></i> Delete</button>
+      </div>
+    `).join('');
+    attachDeleteEvents('activity');
+  }
+
+  function renderProjectsList() {
+    const container = document.getElementById("projectsListContainer");
+    if (!container) return;
+    if (studentProjects.length === 0) {
+      container.innerHTML = '<div class="empty-message"><i class="fas fa-info-circle"></i> No projects uploaded. Showcase your work!</div>';
+      return;
+    }
+    container.innerHTML = studentProjects.map((proj, idx) => `
+      <div class="list-item">
+        <div class="item-info">
+          <div class="item-title">🚀 ${escapeHtml(proj.title)}</div>
+          <div class="item-sub">${proj.tech || 'Tech stack'} • ${proj.description ? proj.description.substring(0, 80) : 'No description'}</div>
+        </div>
+        <button class="delete-item-btn" data-type="project" data-idx="${idx}"><i class="fas fa-trash"></i> Delete</button>
+      </div>
+    `).join('');
+    attachDeleteEvents('project');
+  }
+
+  function attachDeleteEvents(type) {
+    document.querySelectorAll(`.delete-item-btn[data-type="${type}"]`).forEach(btn => {
+      btn.removeEventListener('click', handleDelete);
+      btn.addEventListener('click', handleDelete);
+    });
+  }
+
+  function handleDelete(e) {
+    const btn = e.currentTarget;
+    const type = btn.dataset.type;
+    const idx = parseInt(btn.dataset.idx);
+    if (type === 'mooc') { moocCourses.splice(idx, 1); saveMoocs(); renderMoocList(); showAIResponse("🗑️ MOOC course deleted."); }
+    else if (type === 'activity') { extraActivities.splice(idx, 1); saveActivities(); renderActivityList(); showAIResponse("🗑️ Activity deleted."); }
+    else if (type === 'project') { studentProjects.splice(idx, 1); saveProjects(); renderProjectsList(); showAIResponse("🗑️ Project deleted."); }
+  }
+
+  // ==================== ADD ITEMS ====================
+  function promptAddMooc() {
+    let name = prompt("Enter MOOC course name:", "Machine Learning with Python");
+    if (!name) return;
+    let provider = prompt("Provider (Coursera/NPTEL/edX):", "NPTEL");
+    moocCourses.push({ name: name.trim(), provider: provider || "Self-paced", date: new Date().toLocaleDateString() });
+    saveMoocs(); renderMoocList(); showAIResponse(`✅ Added MOOC: ${name}`);
+  }
+  
+  function promptAddActivity() {
+    let actName = prompt("Activity name:", "Codefest Hackathon");
+    if (!actName) return;
+    let actDate = prompt("Date (optional):", new Date().toLocaleDateString());
+    extraActivities.push({ name: actName.trim(), date: actDate || new Date().toLocaleDateString() });
+    saveActivities(); renderActivityList(); showAIResponse(`🎉 Added activity: ${actName}`);
+  }
+  
+  function promptAddProject() {
+    let projTitle = prompt("Project Title:", "Smart Attendance System");
+    if (!projTitle) return;
+    let tech = prompt("Technologies used:", "React, Node.js, MongoDB");
+    let desc = prompt("Short description:", "An innovative solution for attendance tracking");
+    studentProjects.push({ 
+      title: projTitle.trim(), 
+      tech: tech || "Not specified", 
+      description: desc || "", 
+      date: new Date().toLocaleDateString() 
+    });
+    saveProjects(); renderProjectsList(); showAIResponse(`🚀 Project "${projTitle}" uploaded!`);
+  }
+
+  // ==================== MODAL CONTROLS ====================
+  function openMoocModal() { document.getElementById("moocModal").style.display = "flex"; renderMoocList(); }
+  function closeMoocModal() { document.getElementById("moocModal").style.display = "none"; }
+  function openActivityModal() { document.getElementById("activityModal").style.display = "flex"; renderActivityList(); }
+  function closeActivityModal() { document.getElementById("activityModal").style.display = "none"; }
+  function openProjectsModal() { document.getElementById("projectsModal").style.display = "flex"; renderProjectsList(); }
+  function closeProjectsModal() { document.getElementById("projectsModal").style.display = "none"; }
+
+  // ==================== STUDENT INFO & DASHBOARD COUNTERS ====================
+  function loadStudentInfo() {
+    const studentName = localStorage.getItem(getStudentKey("studentName")) || localStorage.getItem("studentName") || "Student";
+    const studentUSN = localStorage.getItem(getStudentKey("studentUSN")) || localStorage.getItem("studentUSN") || currentUSN;
+    document.getElementById("studentNameDisplay").innerText = studentName;
+    document.getElementById("studentUSNDisplay").innerText = "USN: " + studentUSN;
+  }
+
+  function initializeData() {
+    if (localStorage.getItem("genesis_login_count") === null) localStorage.setItem("genesis_login_count", "0");
+    if (localStorage.getItem("genesis_last_login") === null) localStorage.setItem("genesis_last_login", new Date().toLocaleString());
+    if (localStorage.getItem("genesis_gatepass") === null) localStorage.setItem("genesis_gatepass", "LOW");
+    if (localStorage.getItem("genesis_trending_mooc") === null) localStorage.setItem("genesis_trending_mooc", "Cyber Security");
+  }
+
+  let hasVisited = false;
+  function updateLoginCounterAndVisit() {
+    if (!hasVisited) {
+      let currentCount = parseInt(localStorage.getItem("genesis_login_count")) || 0;
+      currentCount++;
+      localStorage.setItem("genesis_login_count", currentCount);
+      localStorage.setItem("genesis_last_login", new Date().toLocaleString('en-IN', { hour12: true }));
+      hasVisited = true;
+    }
+    let loginCount = localStorage.getItem("genesis_login_count") || 0;
+    document.getElementById("loginCountValue").innerText = loginCount;
+    let lastLoginRaw = localStorage.getItem("genesis_last_login") || "Not logged";
+    const lastLoginElem = document.getElementById("lastLoginDisplay");
+    if (lastLoginElem) lastLoginElem.innerHTML = `<i class="far fa-clock"></i> Last: ${lastLoginRaw}`;
+    document.getElementById("gatepassStatus").innerText = localStorage.getItem("genesis_gatepass");
+    document.getElementById("trendingMooc").innerText = localStorage.getItem("genesis_trending_mooc");
+  }
+
+  function showAIResponse(message) {
+    const responseBox = document.getElementById("aiResponseBox");
+    responseBox.innerHTML = `<i class="fas fa-comment-dots"></i> ${message}`;
+    responseBox.classList.add("show");
+    setTimeout(() => responseBox.classList.remove("show"), 4000);
+  }
+
+  // ==================== EVENT BINDINGS ====================
+  function bindEvents() {
+    document.getElementById("viewMoocDetails")?.addEventListener("click", openMoocModal);
+    document.getElementById("viewActivitiesLink")?.addEventListener("click", openActivityModal);
+    document.getElementById("viewProjectsLink")?.addEventListener("click", openProjectsModal);
+    document.getElementById("addMoocBtn")?.addEventListener("click", promptAddMooc);
+    document.getElementById("addActivityBtn")?.addEventListener("click", promptAddActivity);
+    document.getElementById("addProjectBtn")?.addEventListener("click", promptAddProject);
+    
+    // Upload Project button opens the projects modal
+    document.getElementById("uploadProjectBtn")?.addEventListener("click", () => { openProjectsModal(); showAIResponse("Click 'Upload New Project' to add your project."); });
+    document.getElementById("exploreProjectsBtn")?.addEventListener("click", openProjectsModal);
+    
+    // Other buttons
+    document.getElementById("uploadMaterialBtn")?.addEventListener("click", () => showAIResponse("📘 Course material feature coming soon!"));
+    document.getElementById("accessMaterialsBtn")?.addEventListener("click", () => showAIResponse("📖 Resources will be available in next update."));
+    document.getElementById("viewReportsBtn")?.addEventListener("click", () => showAIResponse("📊 AICTE Reports feature coming soon!"));
+    
+    document.getElementById("askAiBtn")?.addEventListener("click", () => {
+      showAIResponse(`📊 Summary: ${moocCourses.length} MOOCs, ${extraActivities.length} activities, ${studentProjects.length} projects. Use any card to manage!`);
+    });
+    
+    document.getElementById("logoutMainBtn")?.addEventListener("click", () => {
+      showAIResponse("🚪 Logging out...");
+      setTimeout(() => window.location.href = "index.html", 800);
+    });
+  }
+
+  function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
+
+  // ==================== INIT ====================
+  loadAllData();
+  loadStudentInfo();
+  initializeData();
+  updateLoginCounterAndVisit();
+  bindEvents();
+  
+  window.onclick = function(e) { if (e.target.classList && e.target.classList.contains('modal')) e.target.style.display = "none"; };
+</script>
+</body>
+</html>

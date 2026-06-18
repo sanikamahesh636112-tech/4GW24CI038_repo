@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Scheduling Output</title>
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+#gantt {
+    margin-top: 30px;
+    border: 2px solid black;
+    padding: 15px;
+    width: 90%;
+}
+.bar {
+    display: inline-block;
+    height: 40px;
+    margin-right: 2px;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 5px;
+}
+table {
+    width: 90%;
+    margin-top: 30px;
+    border-collapse: collapse;
+}
+td, th {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<h1>CPU Scheduling Output</h1>
+
+<h2>Gantt Chart</h2>
+<div id="gantt"></div>
+
+<h2>Results Table</h2>
+<table id="resultTable">
+    <tr>
+        <th>PID</th>
+        <th>Arrival</th>
+        <th>Burst</th>
+        <th>Completion</th>
+        <th>Turnaround</th>
+        <th>Waiting</th>
+    </tr>
+</table>
+
+<h3 id="avg"></h3>
+
+<script src="js/output.js"></script>
+
+</body>
+</html>

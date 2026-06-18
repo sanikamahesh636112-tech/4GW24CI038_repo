@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Faculty Login - GENESIS PORTAL 3.0</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background: linear-gradient(to right,#1e3a8a,#1e40af);
+      color:white;
+    }
+
+    .container{
+      width:90%;
+      max-width:1200px;
+      height:90vh;
+      display:flex;
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0px 0px 40px rgba(37, 99, 235, 0.3);
+    }
+
+    .left{
+      flex:1;
+      background: linear-gradient(135deg,#1e3a8a,#1e40af);
+      padding:60px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .logo{
+      font-size:20px;
+      font-weight:bold;
+      margin-bottom:50px;
+      color:#93c5fd;
+    }
+
+    .title{
+      font-size:60px;
+      font-weight:bold;
+      margin-bottom:40px;
+    }
+
+    .title span{
+      color:#3b82f6;
+    }
+
+    .feature{
+      background:#172554;
+      padding:18px;
+      border-radius:12px;
+      margin-bottom:20px;
+      font-size:18px;
+      border-left:4px solid #3b82f6;
+    }
+
+    .right{
+      width:420px;
+      background:white;
+      color:black;
+      padding:40px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .right h1{
+      color:#1e3a8a;
+      margin-bottom:10px;
+      text-align:center;
+      font-size:32px;
+    }
+
+    .right p{
+      text-align:center;
+      margin-bottom:30px;
+      color:gray;
+      font-size:14px;
+    }
+
+    .faculty-badge{
+      text-align:center;
+      background:#eff6ff;
+      color:#1e40af;
+      padding:8px;
+      border-radius:8px;
+      margin-bottom:20px;
+      font-weight:bold;
+      font-size:12px;
+      text-transform:uppercase;
+    }
+
+    label{
+      font-weight:bold;
+      margin-bottom:8px;
+      display:block;
+      color:#374151;
+      font-size:14px;
+    }
+
+    input{
+      width:100%;
+      padding:14px;
+      margin-bottom:20px;
+      border:2px solid #e5e7eb;
+      border-radius:10px;
+      font-size:16px;
+      transition:0.3s;
+    }
+
+    input:focus{
+      outline:none;
+      border-color:#3b82f6;
+      box-shadow:0 0 10px rgba(59, 130, 246, 0.2);
+    }
+
+    button{
+      width:100%;
+      padding:15px;
+      border:none;
+      border-radius:10px;
+      background:linear-gradient(to right,#2563eb,#1d4ed8);
+      color:white;
+      font-size:18px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    button:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 20px rgba(37, 99, 235, 0.3);
+    }
+
+    button:disabled{
+      opacity:0.6;
+      cursor:not-allowed;
+    }
+
+    .bottom{
+      margin-top:20px;
+      text-align:center;
+      color:gray;
+      font-size:13px;
+    }
+
+    .bottom a{
+      color:#2563eb;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .error-message{
+      color: white;
+      font-size: 14px;
+      margin-top: -15px;
+      margin-bottom: 15px;
+      display: none;
+      background:#fee2e2;
+      padding:12px;
+      border-radius:8px;
+      border-left:4px solid #dc2626;
+      color:#991b1b;
+    }
+
+    .success-message{
+      color: white;
+      font-size: 14px;
+      margin-top: -15px;
+      margin-bottom: 15px;
+      display: none;
+      background:#dcfce7;
+      padding:12px;
+      border-radius:8px;
+      border-left:4px solid #22c55e;
+      color:#166534;
+    }
+
+    .loading{
+      display: none;
+      text-align: center;
+      margin-top: 10px;
+      color:#2563eb;
+    }
+
+    .loading::after{
+      content: "...";
+      animation: dots 0.6s steps(3, end) infinite;
+    }
+
+    @keyframes dots {
+      0%, 20% { content: "."; }
+      40% { content: ".."; }
+      60%, 100% { content: "..."; }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+      }
+      .right {
+        width: 100%;
+      }
+      .left {
+        padding: 30px;
+      }
+      .title {
+        font-size: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <div class="logo">
+        👨‍🏫 FACULTY PORTAL<br>
+        GSSSIETW
+      </div>
+      <div class="title">
+        GENESIS <span>FACULTY</span>
+      </div>
+      <div class="feature">📚 Manage Classes & Courses</div>
+      <div class="feature">📝 Upload Assignments</div>
+      <div class="feature">✏️ Grade Student Work</div>
+      <div class="feature">📊 View Class Performance</div>
+    </div>
+
+    <div class="right">
+      <div class="faculty-badge">👨‍🎓 Faculty Access</div>
+      <h1>Faculty Login</h1>
+      <p>Access your teaching dashboard</p>
+
+      <label>Faculty ID / Email</label>
+      <input type="text" id="facultyId" placeholder="e.g., FAC001 or prof@gsssietw.edu">
+
+      <label>Password</label>
+      <input type="password" id="facultyPassword" placeholder="Enter your password">
+
+      <div id="errorMsg" class="error-message"></div>
+      <div id="successMsg" class="success-message"></div>
+      
+      <button onclick="loginFaculty()" id="loginBtn">
+        📖 LOGIN TO FACULTY PORTAL
+      </button>
+
+      <div class="loading" id="loading">
+        Verifying credentials
+      </div>
+
+      <div class="bottom">
+        <a href="index.html">← Back to Student Login</a> | 
+        <a href="admin-login.html">Admin Login →</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function loginFaculty(){
+      const facultyId = document.getElementById("facultyId").value.trim();
+      const facultyPassword = document.getElementById("facultyPassword").value;
+      const errorMsg = document.getElementById("errorMsg");
+      const successMsg = document.getElementById("successMsg");
+      const loginBtn = document.getElementById("loginBtn");
+      const loading = document.getElementById("loading");
+
+      // Clear previous messages
+      errorMsg.style.display = "none";
+      successMsg.style.display = "none";
+      errorMsg.textContent = "";
+      successMsg.textContent = "";
+
+      // Validate inputs
+      if(facultyId === "" || facultyPassword === ""){
+        errorMsg.style.display = "block";
+        errorMsg.textContent = "❌ Please enter Faculty ID and Password";
+        return;
+      }
+
+      // Show loading
+      loginBtn.disabled = true;
+      loading.style.display = "block";
+
+      // Simulate faculty credentials check
+      setTimeout(() => {
+        // Demo credentials - CHANGE THESE IN PRODUCTION
+        const validFaculty = {
+          "FAC001": "faculty123",
+          "FAC002": "faculty123",
+          "FAC003": "faculty123",
+          "prof@gsssietw.edu": "faculty123",
+          "dr.smith@gsssietw.edu": "faculty123"
+        };
+
+        if (validFaculty[facultyId] && validFaculty[facultyId] === facultyPassword) {
+          // Store faculty session
+          localStorage.setItem("facultyId", facultyId);
+          localStorage.setItem("facultyRole", "faculty");
+          localStorage.setItem("facultyLoginTime", new Date().toLocaleString());
+          localStorage.setItem("facultyLoginCount", (parseInt(localStorage.getItem("facultyLoginCount")) || 0) + 1);
+
+          successMsg.style.display = "block";
+          successMsg.textContent = "✅ Login Successful! Redirecting to Faculty Dashboard...";
+          
+          setTimeout(() => {
+            window.location.href = "faculty-dashboard.html";
+          }, 1500);
+        } else {
+          loginBtn.disabled = false;
+          loading.style.display = "none";
+          errorMsg.style.display = "block";
+          errorMsg.textContent = "❌ Invalid Faculty ID or Password";
+        }
+      }, 1000);
+    }
+
+    // Allow Enter key to login
+    document.addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        loginFaculty();
+      }
+    });
+
+    // Check if already logged in as faculty
+    const facultyId = localStorage.getItem("facultyId");
+    if (facultyId && (window.location.pathname === '/faculty-login.html')) {
+      window.location.href = "faculty-dashboard.html";
+    }
+  </script>
+</body>
+</html>
